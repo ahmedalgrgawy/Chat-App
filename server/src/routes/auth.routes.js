@@ -1,8 +1,14 @@
 import express from 'express'
-import { register } from '../controllers/auth.controllers.js'
+import { getProfile, login, logout, signup, } from '../controllers/auth.controllers.js'
 
 const router = express.Router()
 
-router.get('/register', register)
+router.get('/profile', getProfile)
+
+router.get('/signup', signup)
+
+router.get('/login', login)
+
+router.get('/logout', logout)
 
 export default router;
