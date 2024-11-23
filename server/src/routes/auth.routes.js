@@ -6,12 +6,11 @@ const router = express.Router()
 
 router.get('/profile', protectedRoute, getProfile)
 
-router.get('/signup', signup)
+router.post('/signup', signup)
 
-router.get('/login', login)
+router.post('/login', login)
+
+router.post('/logout', logout)
 
 router.put('/update-profile', protectedRoute, updateProfile)
-
-router.get('/logout', logout)
-
 export default router;
