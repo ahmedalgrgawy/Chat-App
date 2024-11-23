@@ -3,6 +3,7 @@ import redis from '../lib/redis.js'
 import jwt from 'jsonwebtoken'
 import { generateToken } from '../utils/generateToken.js'
 import { storeTokenInCookies, storeTokenInRedis } from '../utils/storeToken.js'
+import cloudinary from '../lib/cloudinary.js'
 
 export const signup = async (req, res) => {
     try {
@@ -93,6 +94,25 @@ export const logout = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ success: false, message: "Server Error", error: error.message })
     }
+}
+
+export const updateProfile = async (req, res) => {
+    try {
+
+        const { profilePic } = req.body
+        const userId = req.user._id
+
+        if (!profilePic) return res.status(400).json({ success: false, message: "Profile picture is required" })
+
+        const uploadResponse = await cloudinary.uploader.upload(profilePic)
+
+        const updatedUser = await User.findByIdAndUpdate(userId, { profilePic: uploadResponse.secure_url }, { new: true })
+
+        return res.status(200).json({ success: true, message: "Profile updated successfully", updatedUser })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Server Error", error: error.message })
+    }
+
 }
 
 export const getProfile = async (req, res) => {
