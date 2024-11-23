@@ -5,6 +5,7 @@ import cors from "cors";
 
 // routes
 import authRoutes from './routes/auth.routes.js'
+import messageRoutes from './routes/messages.routes.js'
 import { connectDB } from './lib/db.js';
 
 dotenv.config();
@@ -25,6 +26,8 @@ app.use(
 );
 
 app.use('/api/auth', authRoutes)
+
+app.use('/api/message', messageRoutes)
 
 app.listen(port, () => {
     connectDB()
