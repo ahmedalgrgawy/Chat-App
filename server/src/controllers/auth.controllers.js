@@ -20,7 +20,7 @@ export const signup = async (req, res) => {
             return res.status(400).json({ message: "User already exists" })
         }
 
-        const newUser = new User.create({ email, fullName, password })
+        const newUser = new User({ email, fullName, password })
 
         const { accessToken, refreshToken } = generateToken(newUser._id)
 
