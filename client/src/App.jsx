@@ -5,14 +5,17 @@ import LoginPage from "./pages/LoginPage"
 import { SettingPage } from "./pages/SettingPage"
 import ProfilePage from "./pages/ProfilePage"
 import Home from "./pages/Home"
-import { useAuthStore } from "./useAuth"
+import { useAuthStore } from "./stores/useAuth"
 import { useEffect } from "react"
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
+import { useThemeStore } from "./stores/useTheme"
 
 const App = () => {
 
   const { checkAuth, authUser, isCheckingAuth } = useAuthStore();
+
+  const { theme } = useThemeStore()
 
   useEffect(() => {
     checkAuth()
@@ -27,7 +30,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar />
 
       <Routes>
