@@ -7,12 +7,11 @@ import cors from "cors";
 import authRoutes from './routes/auth.routes.js'
 import messageRoutes from './routes/messages.routes.js'
 import { connectDB } from './lib/db.js';
+import { app, server } from './lib/socket.js';
 
 dotenv.config();
 
 const port = process.env.PORT || 5001;
-
-const app = express()
 
 app.use(express.json({ limit: "50mb" }));
 
@@ -29,7 +28,7 @@ app.use('/api/auth', authRoutes)
 
 app.use('/api/message', messageRoutes)
 
-app.listen(port, () => {
+server.listen(port, () => {
     connectDB()
     console.log('Server is Live on ' + port)
 })
