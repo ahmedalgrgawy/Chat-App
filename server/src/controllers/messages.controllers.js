@@ -19,7 +19,7 @@ export const getUsers = async (req, res) => {
     }
 }
 
-export const getMessages = async () => {
+export const getMessages = async (req, res) => {
     try {
 
         const currentUserId = req.user._id
