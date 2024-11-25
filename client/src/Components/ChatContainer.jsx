@@ -8,7 +8,7 @@ import { useAuthStore } from "../stores/useAuth";
 
 const ChatContainer = () => {
 
-    const { messages, getMessages, isMessagesLoading, selectedUser } = useChatStore();
+    const { messages, getMessages, isMessagesLoading, selectedUser, listenToMessages, unListenToMessages } = useChatStore();
 
     const { authUser } = useAuthStore();
 
@@ -16,7 +16,11 @@ const ChatContainer = () => {
 
     useEffect(() => {
         getMessages(selectedUser._id)
-    }, [getMessages, selectedUser._id])
+
+        listenToMessages()
+
+        return () => unListenToMessages();
+    }, [getMessages, selectedUser._id, listenToMessages, unListenToMessages])
 
     useEffect(() => {
         if (messageEndRef.current && messages) {
